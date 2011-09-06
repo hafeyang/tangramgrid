@@ -35,7 +35,7 @@ baidu.ui.Grid.register(function(g){
 			}else{
 				var selrow = baidu.dom.query(".gridrow[rowindex="+g.selectedRows[0]+"]",g.ref.gbody)[0];
 				nextrow=selrow.nextSibling;
-				while(nextrow &&  ( (!nextrow.getAttribute("rowindex")) || (nextrow.style.display=="none")) ){
+				while(nextrow &&  ( (!nextrow.getAttribute("rowindex")) || (nextrow.style.display=="none") || (!baidu.dom.hasClass(nextrow,"gridrow"))) ){
 					nextrow= nextrow.nextSibling;
 				}
 				nextrow && (rowIndex = parseInt(nextrow.getAttribute("rowindex"),10));
@@ -57,7 +57,7 @@ baidu.ui.Grid.register(function(g){
 			}else{
 				var selrow = baidu.dom.query(".gridrow[rowindex="+g.selectedRows[0]+"]",g.ref.gbody)[0];
 				prevrow=selrow.previousSibling;
-				while(prevrow && ( (!prevrow.getAttribute("rowindex")) || (prevrow.style.display=="none")) ){
+				while(prevrow && ( (!prevrow.getAttribute("rowindex")) || (prevrow.style.display=="none")  ||  (!baidu.dom.hasClass(prevrow,"gridrow")) ) ){
 					prevrow= prevrow.previousSibling;
 				}
 				prevrow && (rowIndex = parseInt(prevrow.getAttribute("rowindex"),10));

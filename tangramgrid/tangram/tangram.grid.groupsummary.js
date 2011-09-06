@@ -145,7 +145,7 @@ baidu.ui.Grid.register(function(g){
 		}
 		if(_lastGroupValue!= groupValue){
 			if (_lastGroupValue != null && g.groupSummary) {
-				arr.push("<tr class='groupsummaryrow' groupfieldvalue='"+groupValue+"'>");
+				arr.push("<tr class='groupsummaryrow' groupfieldvalue='"+_lastGroupValue+"'>");
 				for (var j = 0, cll = cols.length; j < cll; j++) {
 					var col = cols[j];
 					if (!col.columns) {
@@ -259,7 +259,7 @@ baidu.ui.Grid.register(function(g){
 					baidu.dom.addClass(expander,"expanded");
 				}
 				var crow = row.nextSibling;
-				while(crow && crow.getAttribute("rowindex")){
+				while(crow && crow.getAttribute("rowindex") && baidu.dom.hasClass(crow,"gridrow")){
 					crow.style.display=(toUnExpand?"none":"");
 					crow=  crow.nextSibling;
 				}
