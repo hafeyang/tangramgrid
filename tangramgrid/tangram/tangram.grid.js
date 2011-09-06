@@ -874,7 +874,7 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 			var s  = g._getSrc(e);
 			if(s.row){
 				gbodyOut();
-				baidu.array.each(baidu.dom.query("[rowindex="+s.rowIndex+"]"),function(row){
+				baidu.array.each(baidu.dom.query("[rowindex="+s.rowIndex+"]",g.ref.gbody),function(row){
 					baidu.dom.addClass(row,"hover");
 				});
 				g.highLightedRow=s.rowIndex;
