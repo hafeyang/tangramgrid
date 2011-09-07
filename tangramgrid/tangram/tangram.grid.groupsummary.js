@@ -145,7 +145,7 @@ baidu.ui.Grid.register(function(g){
 		}
 		if(_lastGroupValue!= groupValue){
 			if (_lastGroupValue != null && g.groupSummary) {
-				arr.push("<tr class='groupsummaryrow' groupfieldvalue='"+_lastGroupValue+"'>");
+				arr.push("<tr class='groupsummaryrow' groupfieldvalue='"+groupValue+"'>");
 				for (var j = 0, cll = cols.length; j < cll; j++) {
 					var col = cols[j];
 					if (!col.columns) {
@@ -162,10 +162,10 @@ baidu.ui.Grid.register(function(g){
 							var  subcol= col.columns[subi],f = subcol.field||"",groupSummaryValue= g.groupdata[_lastGroupValue].summary[f];
 							groupSummaryValue= (groupSummaryValue=="0"?0:(groupSummaryValue||""));
 							var cellText = typeof(subcol.groupSummaryFormat)=="string"?baidu.string.format(subcol.groupSummaryFormat,{groupSummaryValue:groupSummaryValue}):groupSummaryValue;
-							if(typeof(col.groupSummaryFormat)=="function"){
-								cellText= col.groupSummaryFormat.call(g,{groupSummaryValue:groupSummaryValue});
+							if(typeof(subcol.groupSummaryFormat)=="function"){
+								cellText= subcol.groupSummaryFormat.call(g,{groupSummaryValue:groupSummaryValue});
 							}
-							arr.push("<td  nowrap='nowrap' style='" + (col.hide ? "display:none;" : "") + "'><span class='cellcontent' style='text-align:" + (col.align || "left") + ";' > " +cellText + "</span></td>");
+							arr.push("<td  nowrap='nowrap' style='" + (subcol.hide ? "display:none;" : "") + "'><span class='cellcontent' style='text-align:" + (subcol.align || "left") + ";' > " +cellText + "</span></td>");
 						}
 					}
 				}
@@ -199,10 +199,10 @@ baidu.ui.Grid.register(function(g){
 							var  subcol= col.columns[subi],f = subcol.field||"",groupSummaryValue= g.groupdata[groupValue].summary[f];
 							groupSummaryValue= (groupSummaryValue=="0"?0:(groupSummaryValue||""));
 							var cellText = typeof(subcol.groupSummaryFormat)=="string"?baidu.string.format(subcol.groupSummaryFormat,{groupSummaryValue:groupSummaryValue}):groupSummaryValue;
-							if(typeof(col.groupSummaryFormat)=="function"){
-								cellText= col.groupSummaryFormat.call(g,{groupSummaryValue:groupSummaryValue});
+							if(typeof(subcol.groupSummaryFormat)=="function"){
+								cellText= subcol.groupSummaryFormat.call(g,{groupSummaryValue:groupSummaryValue});
 							}
-							arr.push("<td  nowrap='nowrap' style='" + (col.hide ? "display:none;" : "") + "'><span class='cellcontent' style='text-align:" + (col.align || "left") + ";' > " +cellText + "</span></td>");
+							arr.push("<td  nowrap='nowrap' style='" + (subcol.hide ? "display:none;" : "") + "'><span class='cellcontent' style='text-align:" + (subcol.align || "left") + ";' > " +cellText + "</span></td>");
 						}
 					}
 				}
@@ -232,11 +232,11 @@ baidu.ui.Grid.register(function(g){
 					for (var subi = 0, subl = col.columns.length; subi < subl; subi++) {
 						var  subcol= col.columns[subi],f = subcol.field||"",summaryValue= g.summarydata[f];
 						summaryValue= (summaryValue=="0"?0:(summaryValue||""));
-						var cellText = typeof(col.summaryFormat)=="string"?baidu.string.format(subcol.summaryFormat,{summaryValue:summaryValue}):summaryValue;
-							if(typeof(col.summaryFormat)=="function"){
-							cellText= col.summaryFormat.call(g,{summaryValue:summaryValue});
+						var cellText = typeof(subcol.summaryFormat)=="string"?baidu.string.format(subcol.summaryFormat,{summaryValue:summaryValue}):summaryValue;
+							if(typeof(subcol.summaryFormat)=="function"){
+							cellText= subcol.summaryFormat.call(g,{summaryValue:summaryValue});
 						}
-						arr.push("<td  nowrap='nowrap' style='" + (col.hide ? "display:none;" : "") + "'><span class='cellcontent' style='text-align:" + (col.align || "left") + ";' > " +cellText + "</span></td>");
+						arr.push("<td  nowrap='nowrap' style='" + (subcol.hide ? "display:none;" : "") + "'><span class='cellcontent' style='text-align:" + (subcol.align || "left") + ";' > " +cellText + "</span></td>");
 					}
 				}
 			}
@@ -259,7 +259,7 @@ baidu.ui.Grid.register(function(g){
 					baidu.dom.addClass(expander,"expanded");
 				}
 				var crow = row.nextSibling;
-				while(crow && crow.getAttribute("rowindex") && baidu.dom.hasClass(crow,"gridrow")){
+				while(crow && crow.getAttribute("rowindex")){
 					crow.style.display=(toUnExpand?"none":"");
 					crow=  crow.nextSibling;
 				}
