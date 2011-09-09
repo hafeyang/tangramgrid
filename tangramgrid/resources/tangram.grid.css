@@ -60,7 +60,7 @@
 
 .tangramgrid .gridbody table  td .nodecontent{padding-left:4px;}
 .tangramgrid .gridbody table  td .spacing{padding-left:16px;}
-.tangramgrid .gridbody table  td .expander{border:1px solid #99BCE8; background-color:#F5F5F6;color:#99BCE8;cursor:pointer;font-size:8px; font-family:"Arial"; padding:0px 1px;}
+.tangramgrid .gridbody table  td .expander{border:1px solid #99BCE8; background-color:#F5F5F6;color:#99BCE8;cursor:pointer;font-size:8px; font-family:"Arial"; padding:0px 1px;margin:3px 2px;}
 
 .tangram-focused{outline:dotted 1px #ccc;}
 
