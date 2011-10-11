@@ -530,18 +530,9 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 	 * @param fields {String|Array}指定列名称
 	 */
 	getSelected:function(fields){
-		if(this.selectedRows.length>0){
-			var row = {},datarow = this.data.data.list[this.selectedRows[0]];
-			if(baidu.lang.isString(fields)){
-				row[fields]= datarow[fields];
-			}else if(baidu.lang.isArray(fields)){
-				baidu.array.each(fields,function(f){
-					row[f]= datarow[f];
-				});
-			}else{
-				row =datarow;
-			}
-			return row;
+		var selections = this.getSelections();
+		if(selections.length>0){
+			return selections[0];
 		}else{
 			return null;
 		}
