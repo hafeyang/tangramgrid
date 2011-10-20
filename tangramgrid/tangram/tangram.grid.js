@@ -938,6 +938,7 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 		}
 		function startResize(e){
 			var s = g._getSrc(e),src= s.src,e=baidu.event.get(e);
+			headerLeft= baidu.dom.getPosition(g.ref.gheader).left;
 			if (baidu.dom.hasClass(src,"header-col-resizer")) {
 				cell = s.cell;
 				l = baidu.dom.getPosition(cell).left;
