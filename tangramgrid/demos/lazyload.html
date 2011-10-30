@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>Tangram-Grid-LazyLoad</title>
+	<script type="text/javascript" src="../tangram/tangram-1.3.9.source.js"></script>
+	<script type="text/javascript" src="../tangram/tangram.baseUI.source.js"></script>
+	<script type="text/javascript" src="../tangram/tangram.grid.js"></script>
+	<script type="text/javascript" src="../tangram/tangram.grid.lazyload.js"></script>
+	<link rel="stylesheet" href="../resources/tangram.grid.css" />
+</head>
+<body>
+<div id="lazyloadtangramgrid"></div>
+<script type="text/javascript">
+
+var COLUMNSCOUNT=16;	
+
+//初始化grid
+var columns = [];
+for(var i=0;i<COLUMNSCOUNT;i++){
+	columns.push({header:"列"+(i+1),field:"f"+(i+1),width:120});
+}
+var grid =new baidu.ui.Grid({
+	element:"lazyloadtangramgrid",
+	columns:columns,
+	page:false,
+	height:400
+});
+//generate mock data 
+function getMockData(rows){
+	var result = [];
+	for(var i=0;i<rows;i++){
+		var row={};
+		for(var j=0;j<COLUMNSCOUNT;j++){
+			row["f"+(j+1)]="第"+(i+1)+"行第"+(j+1)+"列数据";
+		}
+		result.push(row);
+	}
+	return result;
+}
+
+//load
+function load(rows){
+	var start = new Date();
+	grid.loadData({data:{list:getMockData(rows)}});
+	var end = new Date();
+	baidu.g("txtlog").value+=(baidu.string.format("加载#{rows}条数据耗时#{time}(ms)\n",{rows:rows,time:(end.getTime()-start.getTime())}));
+}
+//load
+function lazyload(rows){
+	var start = new Date();
+	grid.lazyLoadData({data:{list:getMockData(rows)}});
+	var end = new Date();
+	baidu.g("txtlog").value+=(baidu.string.format("延迟加载#{rows}条数据耗时#{time}(ms)\n",{rows:rows,time:(end.getTime()-start.getTime())}));
+}
+</script>
+<input type="button" value="加载100条记录"  onclick="load(100)" />
+<input type="button" value="加载1000条记录"  onclick="load(1000)" />
+<input type="button" value="加载10000条记录(!)"  onclick="load(10000)" />
+<hr/>
+<input type="button" value="延迟加载100条记录"  onclick="lazyload(100)" />
+<input type="button" value="延迟加载1000条记录"  onclick="lazyload(1000)" />
+<input type="button" value="延迟加载10000条记录"  onclick="lazyload(10000)" />
+
+<textarea id="txtlog" style="width:100%;height:300px;" autocomplete="off"></textarea>
+</body>
+</html>
