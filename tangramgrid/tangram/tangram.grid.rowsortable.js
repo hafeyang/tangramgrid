@@ -75,7 +75,7 @@ baidu.ui.Grid.extend({
 				}
 			}
 			if(null==row || (!baidu.dom.hasClass(row, "gridrow"))){
-				dragend();
+				g._rs_dragend();
 				return ;
 			}
 			g.clearSelection();
