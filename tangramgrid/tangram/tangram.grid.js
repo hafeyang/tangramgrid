@@ -1063,6 +1063,7 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 		baidu.dom.addClass(g.element,"tangramgrid");
 		g.renderMain(target);
 		g.element.innerHTML= frameHtml;
+		g.height=g.height||200;
 		//cache grid's element references
 		g.ref={};
 		g.selectedRows=[];//the row index of selected rows
