@@ -304,7 +304,7 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 		if(!g.dispatchEvent("beforerequest",opt)){return ;}
 		if(typeof(g.onBeforeRequest)=="function"  && g.onBeforeRequest({},opt)===false ) {return;}
 		
-		opt.data = baidu.url.jsonToQuery(opt.data);
+		opt.data = baidu.url.jsonToQuery(opt.data,function(a){return a;});//不转义特殊字符
 		g.ajaxOption=opt;//remember the ajaxOption.data
 		g.page.curPage = data.curPage;//remember current page
 		//g.orderBy=data.orderBy;
