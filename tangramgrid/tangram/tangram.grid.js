@@ -1117,7 +1117,7 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 	_handlePager:function(e){
 		var g= this,p = g.ref.pager,e=baidu.event.get(e),
 		perPage=p.pagenumbers.options[p.pagenumbers.selectedIndex].value,
-		curPage=g.page.curPage,s = e.target,prevent=false;
+		curPage=parseInt(g.page.curPage,10),s = e.target,prevent=false;
 		if(s==p.first || s==p.pagenumbers){
 			curPage=1;
 		}
