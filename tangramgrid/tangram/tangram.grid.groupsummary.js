@@ -1,4 +1,4 @@
-/*!
+/*
  * Grid  group & summary
  * @author yanghengfeng
  */

@@ -1,4 +1,4 @@
-/*!
+/*
  * Grid row expand addon
  * columns:[
 			{
@@ -67,5 +67,17 @@ baidu.ui.Grid.ext.coltype.rowexpand={
 				}
 			}
 		});
+        g.expandAll=function(){
+            var expanders=baidu.dom.query(".grid-expand:not(.expanded)",g.element);
+            baidu.array.each(expanders,function(e){
+                baidu.event.fire(e,"click");
+            });
+        }
+        g.unExpandAll=function(){
+            var expanders=baidu.dom.query(".expanded",g.element);
+            baidu.array.each(expanders,function(e){
+                baidu.event.fire(e,"click");
+            });
+        }
 	}
 };

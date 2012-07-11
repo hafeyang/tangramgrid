@@ -10,13 +10,15 @@
 	<link rel="stylesheet" href="../resources/tangram.grid.css" />
 </head>
 <body>
-	<h2>行数据展开</h2>
+	<h2>行数据展开 & 表格嵌套</h2>
 <div id="gridwidthsub"></div>
 <script type="text/javascript">
 	//初始化
 	var griddemo = new baidu.ui.Grid({
 		element:"gridwidthsub",
+		selectMode:1,
 		columns:[
+			{renderer:"checkbox",width:30},
 			{
 				field:'id',
 				width:30,
@@ -25,11 +27,44 @@
 				title:"点击查看/收起详细信息",// +/-提示信息
 				onExpand:function(param){
 					//param: {expandedrow:expandedrow,expandedcell:expandedcell,data:cellclickdata}
-					param.expandedcell.innerHTML=baidu.string.format("<div style='height:50px;padding:30px;'>机器#{name}详细信息</div>",this.getData().data.list[param.data.rowIndex]);
+					/*param.expandedcell.innerHTML=baidu.string.format("<div style='height:50px;padding:30px;'>机器#{name}详细信息</div>",this.getData().data.list[param.data.rowIndex]);*/
+					var gridid ="innergrid-"+param.data.rowIndex; 
+					param.expandedcell.style.padding="5px";
+					param.expandedcell.innerHTML="<div id='"+gridid+"' style='height:200px;'></div>";
+					setTimeout(function(){
+						//将grid实例引用放在param.expandedcell上
+						param.expandedcell.grid = new baidu.ui.Grid({
+							element:gridid,
+							columns:[
+								{renderer:"checkbox",width:30},
+								{field:"code",header:"code",sortable:false,width:200},
+								{field:"name",header:"name",sortalbe:false,width:400}
+							],
+							height:200,
+							page:false,
+							selectMode:1
+						});
+						param.expandedcell.grid.loadData({
+							data:{
+								list:[
+									{code:"code1",name:"name1"},
+									{code:"code2",name:"name2"}
+								]
+							}
+						});
+					},50);
+					
+					
 				},
 				onUnExpand:function(param){
 					//param: {expandedrow:expandedrow,expandedcell:expandedcell,data:cellclickdata}
-					console.log("onunexpand");
+					//console.log("onunexpand");
+
+					//将grid实例引用放在param.expandedcell上 需要及时释放，防止内存泄露
+					if(param.expandedcell.grid){
+						param.expandedcell.grid.dispose();//full disposable 
+						param.expandedcell.grid=null;
+					}
 				}
 			},
 			{field:'name',header:"机器名称",fix:true},
@@ -40,7 +75,6 @@
 		],
 		height:200,
 		autoHeight:true,
-		hoverhighlight:true,
 		loadMask:true,
 		url:"noahdata.json",
 		ajaxOption:{

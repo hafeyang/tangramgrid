@@ -1,4 +1,4 @@
-/*!
+/*
  * Tree Grid  addon
  * @author yanghengfeng
  */

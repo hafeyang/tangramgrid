@@ -11,7 +11,10 @@
 	<link rel="stylesheet" href="../resources/tangram.grid.css" />
 </head>
 <body>
-<div id="firsttangramgrid"></div>
+<h2>基本功能 & 键盘光标操作 & 列头拖拽</h2>
+<div id="gridc">
+	<div id="firsttangramgrid"></div>
+</div>
 <script type="text/javascript">
 	//初始化
 	var griddemo = new baidu.ui.Grid({
@@ -136,5 +139,7 @@ window.onresize = function(){//容器大小发生变化
 <input type="button" value="Order by dataKey desc "  onclick="griddemo.reOrder(3,'desc');" />
 <input type="button" value="add/update/delete row"  onclick="row_operate()" />
 <input type="button" value="add/update/delete DOM row"  onclick="row_dom_operate()" />
+<input type="button" value="reload Grid via ajax"  onclick="griddemo.request()" />
+<input type="button" value="toggle grid container" onclick="baidu.dom.toggle(baidu.g('gridc'));griddemo.resize();" />
 </body>
 </html>

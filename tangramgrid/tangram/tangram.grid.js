@@ -1,4 +1,4 @@
-/*!
+/*
  * Grid,based on Tangram lib
  * Tangram Grid is the Grid you need!
  * @author yanghengfeng
@@ -96,35 +96,6 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 					});
 				}
 			}
-		}
-		g._webkit();
-	},
-	/**
-	 * webkit bug fix 
-	 */
-	_webkit:function(mode){
-		var g = this;
-		if(baidu.browser.isWebkit){
-			baidu.array.each(baidu.dom.query("table",g.ref.gbody),function(t){
-				if(t.rows[0]){
-					baidu.array.each(t.rows[0].cells,function(c,i){
-						var colIndex = c.getAttribute("refcol"),col= g._getCol(colIndex);
-						if(g.fixColIndex==colIndex){
-							if(mode){
-								c.style.width=((col.width+1)+"px");
-							}else{
-								c.style.width=(col.width+"px");
-							}
-							if(mode===false ){
-								c.style.width=((col.width+1)+"px");
-							}
-							
-						}else if(i!=0 ){
-							c.style.width=((col.width+1)+"px");
-						}
-					});
-				}
-			});
 		}
 	},
 	/**
@@ -410,7 +381,6 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 			g.page.total=data.data.page.total;
 			
 		}
-		g._webkit();
 		g.dispatchEvent("afterload",data);
 		if(typeof(g.onAfterLoad)=="function") g.onAfterLoad({},data);
 	},
@@ -803,7 +773,12 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 			if(cell && row  && table ){break;}
 			o=o.parentNode;
 		}
-		return {cell:cell,row:row,table:table,rowIndex:rowIndex,src:src};
+		//考虑有表格嵌套的情况，需要对找到的src进行校验
+		if(table && (table.parentNode.parentNode == g.ref.gbody || table.parentNode == g.ref.gheader) ){
+			return {cell:cell,row:row,table:table,rowIndex:rowIndex,src:src};
+		}else{
+			return {};
+		}
 	},
 	_getCol:function(colIndex){
 		if(!this._originColumns) {
@@ -844,7 +819,6 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 				g.dispatchEvent("rowclick",data);
 				if(typeof(g.onRowClick)=="function") g.onRowClick(e,data);
 				if(g.clickToSelect!==false)g.toggleSelectRow(s.rowIndex,e);
-				g._webkit();
 			}
 			
 		}
@@ -865,9 +839,10 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 			var s  = g._getSrc(e);
 			if(s.row){
 				gbodyOut();
-				baidu.array.each(baidu.dom.query("[rowindex="+s.rowIndex+"]",g.ref.gbody),function(row){
+				/*baidu.array.each(baidu.dom.query("[rowindex="+s.rowIndex+"]",g.ref.gbody),function(row){
 					baidu.dom.addClass(row,"hover");
-				});
+				});*/
+				baidu.dom.addClass(s.row,"hover");
 				g.highLightedRow=s.rowIndex;
 			}
 		}
@@ -934,12 +909,11 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 			}
 			isResizing=false;
 			cell==null;
-			g._webkit(refcol!=g.fixColIndex);
 		}
 		function startResize(e){
 			var s = g._getSrc(e),src= s.src,e=baidu.event.get(e);
 			headerLeft= baidu.dom.getPosition(g.ref.gheader).left;
-			if (baidu.dom.hasClass(src,"header-col-resizer")) {
+			if (src && baidu.dom.hasClass(src,"header-col-resizer")) {
 				cell = s.cell;
 				l = baidu.dom.getPosition(cell).left;
 				var x = baidu.event.getPageX(e);
@@ -1213,7 +1187,10 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 		delete g.ref;
 	},
 	dispose : function(){
-		baidu.dom.remove(g.getBody());
+        var g =this;
+        g._clearBindings();
+		baidu.dom.empty(g.element);
+        g.dispatchEvent("dispose",{});
 		baidu.lang.Class.prototype.dispose.call(g);
 	}
 });

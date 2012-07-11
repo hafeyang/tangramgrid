@@ -1,4 +1,4 @@
-/*!
+/*
  * Grid editable
  * @author yanghengfeng
  */

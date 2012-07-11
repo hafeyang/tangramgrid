@@ -1,6 +1,6 @@
 /**
  * @author yanghengfeng
- * grid page sort
+ * grid page sort addon
  */
 baidu.ui.Grid.register(function(g){
 	if(g.page==false){

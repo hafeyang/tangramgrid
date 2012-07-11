@@ -1,4 +1,4 @@
-/*!
+/*
  * Grid row sortable addon
  * add config option rowsortable,if rowsortable=true grid rows are sortable
  * add a method serializeRows return current rows data in grid
