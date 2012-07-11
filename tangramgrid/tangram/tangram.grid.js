@@ -774,7 +774,7 @@ baidu.ui.Grid = baidu.ui.createUI(function(opt){
 			o=o.parentNode;
 		}
 		//考虑有表格嵌套的情况，需要对找到的src进行校验
-		if(table && (table.parentNode.parentNode == g.ref.gbody || table.parentNode == g.ref.gheader) ){
+		if(table && (table.parentNode.parentNode == g.ref.gbody || table.parentNode == g.ref.gbody || table.parentNode == g.ref.gheader) ){
 			return {cell:cell,row:row,table:table,rowIndex:rowIndex,src:src};
 		}else{
 			return {};

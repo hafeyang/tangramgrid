@@ -14,9 +14,6 @@
 <body>
 <h2>TreeGrid</h2>
 <div id="treegrid"></div>
-<div id="treeGrid" class="">
-	
-</div>
 <div>
 	<input type="button" id="addnodes" value="添加子树" autocomplete="off" />
 	<input type="button" id="deletenode" value="删除选中节点" autocomplete="off" />
@@ -133,42 +130,6 @@
 		});
 	});
 
-
-baidu.dom.ready(function(){
-	var grid = new baidu.ui.Grid({
-		element:"treeGrid",
-		keyboard:true,
-		columns:[{field:'title',header:"报警标题",fix:true,sortable:false,renderer:'tree',formatter:function(data){
-					var r = data.rowdata
-					var v = r.title;
-					var htm = [];
-					htm.push("<a href='#' onclick='Event.showDetails("+r.idName+")'>"+v+"</a>");
-					htm.push("<div class='op1'>&nbsp;<span class='preview' title='获取选中节点' onclick='Event.showDetails(\""+r.idName+"\")'></span>&nbsp;<span class='takeOver' title='接手'></span></div>");
-					return htm.join('');
-				},
-				idfield:'id',//主键字段名称，节点行的唯一标识
-				parentfield:'parentId',//父节点字段名称
-				expandBy:function(data){//可以展开特定的节点
-					return false;
-				},
-				treeSelect:true
-			},
-			{field:'idName',header:"编号",width:80,sortable:false,renderer:function(data){ var id = data.cellvalue; return id?'E'+id:id}},
-			{field:'urgencyName',header:"优先级",width:80,align:"center",sortable:false},
-			{field:'alarmedAt',header:"报警时间",width:150,sortable:false},
-			{field:'nodeName',header:"节点路径",width:250,align:"center",sortable:false},
-			{field:'statusName',header:"状态",width:100,align:"center",sortable:false},
-			{field:'updatedUserName',header:"最后更新人",width:100,align:"center",sortable:false}
-		],
-		height:400,
-		autoHeight:false,
-		strip:false,
-		hoverhighlight:false,
-		page:false,
-		url:"treedata.json"
-	}); 
-	grid.request();
-});
 </script>
 </body>
 </html>
