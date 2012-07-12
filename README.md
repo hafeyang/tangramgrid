@@ -15,3 +15,7 @@ Tangrid Grid是基于Tangram 的一个Grid的控件，特点:
 Tangram Grid is a grid component base baidu tangram。It is easy to use,powerful and extensible，high performace ,be compatible with Internet Explorer 6。
 
 If you want to get more information,checkout the code and see the documents and demo.
+
+==============================
+online demo and docs:
+http://hafeyang.github.com/tangramgrid
